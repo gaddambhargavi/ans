@@ -1,0 +1,14 @@
+---
+- name: playbook for installation 
+  hosts: data
+  gather_facts: False
+  become: yes
+  roles:
+    - role: docker1
+    - role: aws  
+    - role: ansible  
+    - role: jenkins
+    - role: git 
+    - role: gitlab
+    - role: azure
+    - role: terraform 

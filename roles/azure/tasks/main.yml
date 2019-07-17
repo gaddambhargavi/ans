@@ -1,0 +1,27 @@
+---
+- name: Update apt cache.
+  become: yes
+  tags: 'az-cli'
+  apt: update_cache=yes
+
+- name: Fix broken apt module for Ubuntu 1604
+  become: yes
+  tags: 'az-cli'
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+     - lsb-release
+     - curl
+     - apt-transport-https
+     - gnupg
+
+- name: download url 
+  tags: "az-cli"
+  get_url: url=https://aka.ms/InstallAzureCLIDeb dest=/tmp/azure.sh
+
+- name: Install gitlab repo Debian-Like
+  tags: "az-cli"
+  command: bash /tmp/azure.sh
+
+

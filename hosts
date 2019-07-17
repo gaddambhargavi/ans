@@ -1,0 +1,8 @@
+[database]
+10.211.203.150 ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+
+[data]
+10.211.203.97
+
+[base]
+10.211.203.94 ansible_python_interpreter="/usr/bin/env python"

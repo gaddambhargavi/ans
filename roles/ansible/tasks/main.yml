@@ -1,0 +1,25 @@
+---
+- name: update packages for ansible
+  become: yes
+  apt:
+   update_cache: yes
+  tags:
+    - ansible
+
+- name: install sofware properties for ansible
+  become: yes
+  apt: name=software-properties-common state=latest
+  tags:
+    - ansible
+
+- name: install repositories for ansible
+  become: yes
+  apt_repository: repo='ppa:ansible/ansible'
+  tags:
+    - ansible
+
+- name: install ansible
+  apt: name=ansible state=latest
+  tags:
+    - ansible
+

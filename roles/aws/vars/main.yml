@@ -1,0 +1,10 @@
+---
+home_dir: '/home'
+aws_cli_user: 'oss'
+aws_cli_group: 'oss'
+aws_output_format: 'json'
+aws_region: 'ap-south-1'
+aws_access_key_id: 'AKIAIDHGGSTQXIY5EVKA'
+aws_secret_access_key: '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'
+toplevel_timeservers: ['time.ord1.rackspace.com', 'time.ord2.rackspace.com']
+

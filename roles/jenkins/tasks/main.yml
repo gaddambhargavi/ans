@@ -1,0 +1,35 @@
+---
+- name: Update APT package manager repositories cache
+  become: true
+  tags: jenkins
+  apt:
+    update_cache: yes
+
+- name: Install OpenJDK Java
+  become: yes
+  tags: jenkins
+  apt:
+    name: openjdk-8-jdk
+    state: present
+
+- name: ensure the jenkins apt repository key is installed
+  tags: jenkins
+  apt_key: url='https://pkg.jenkins.io/debian-stable/jenkins.io.key' state=present
+  become: yes
+   
+- name: ensure the repository is configured
+  tags: jenkins
+  apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+  become: yes
+
+- name: ensure jenkins is installed
+  tags: jenkins
+  apt: name=jenkins update_cache=yes state=present
+  become: yes
+
+- name: listen port
+  tags: jenkins
+  become: yes
+  lineinfile: dest=/etc/default/jenkins regexp="^HTTP_PORT=8080" line="HTTP_PORT=8045" state=present
+  notify: 
+    - restart jenkins

@@ -1,0 +1,34 @@
+---
+- name: Install Debian-like packages
+  tags: gitlab
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - postfix
+    - curl
+    - ca-certificates
+    - openssh-server
+
+- name: Download gitlab repo Debian-Like
+  tags: gitlab
+  get_url: url=https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh dest=/tmp/gitlab_install_repository.sh
+
+- name: Install gitlab repo Debian-Like
+  tags: gitlab
+  command: bash /tmp/gitlab_install_repository.sh
+
+- name: Install gitlab Debian-Like
+  tags: gitlab
+  apt: name=gitlab-ce state=latest
+  notify: configure gitlab
+
+- name: Copy template (for AD)
+  tags: gitlab
+  template: src=gitlab.rb.j2 dest=/etc/gitlab/gitlab.rb owner=root group=root mode=0600
+  notify: configure gitlab
+
+  #- name: GitLab service status
+  #tags: gitlab
+  #service:
+  # name: gitlab-runsvdir.service
+  # state: started
+  # enabled: yes
